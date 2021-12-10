@@ -21,3 +21,28 @@ function prixActuelleBitcoin() {
   };
 }
 setInterval(prixActuelleBitcoin, 1000);
+
+const url1 = "https://lesoublisdelinfo.com/api.php";
+
+// GET
+let requete1 = new XMLHttpRequest();
+// requete1.open("GET", url1);
+// requete1.responseType = "json";
+// requete1.send();
+
+// POST
+requete1.open("POST", url1);
+requete1.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+requete1.responseType = "json";
+requete1.send("prenom=karim");
+
+requete1.onload = function () {
+  if (requete1.readyState === XMLHttpRequest.DONE) {
+    if (requete1.status === 200) {
+      let reponse1 = requete1.response;
+      console.log(reponse1);
+    } else {
+      alert("Un problème est intervenu, merci de revenir ultérieurement");
+    }
+  }
+};
