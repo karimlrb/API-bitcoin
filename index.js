@@ -99,6 +99,9 @@ function axiosRecupererPrix() {
     })
     .catch(function (erreur) {
       alert("Un problème est survenu");
+    })
+    .then(function () {
+      console.log("Maj effectuée");
     });
 }
-setInterval(axiosRecupererPrix(), 1000);
+setInterval(axiosRecupererPrix, 1000);
