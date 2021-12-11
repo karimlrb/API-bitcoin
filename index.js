@@ -1,5 +1,7 @@
 const url = "https://blockchain.info/ticker";
 
+// XMLHttpRequest()--------------------------------------------
+
 // function prixActuelleBitcoin() {
 //   // Créer une requête
 //   let requete = new XMLHttpRequest(); //créartion de l'objet
@@ -47,39 +49,56 @@ const url1 = "https://lesoublisdelinfo.com/api.php";
 //   }
 // };
 
-async function recupererPrix() {
-  const requete = await fetch(url, {
-    method: "GET",
-  });
+// Fetch()--------------------------------------------
 
-  if (!requete.ok) {
-    alert("Un problème est surevenu");
-  } else {
-    let donnees = await requete.json();
-    // console.log(donnees);
-    let prixEnEuro = donnees.EUR.last;
-    document.getElementById("price_label").textContent = prixEnEuro;
-  }
+// async function recupererPrix() {
+//   const requete = await fetch(url, {
+//     method: "GET",
+//   });
+
+//   if (!requete.ok) {
+//     alert("Un problème est surevenu");
+//   } else {
+//     let donnees = await requete.json();
+//     // console.log(donnees);
+//     let prixEnEuro = donnees.EUR.last;
+//     document.getElementById("price_label").textContent = prixEnEuro;
+//   }
+// }
+
+// recupererPrix();
+
+// async function envoyerPrenom(prenom) {
+//   const requete2 = await fetch(url1, {
+//     method: "POST",
+//     headers: {
+//       "Content-type": "application/x-www-form-urlencoded",
+//     },
+//     body: new URLSearchParams({
+//       prenom, // raccourci de cette syntaxe  prenom : prenom
+//     }), //envoyer le prenom)
+//   });
+//   if (!requete2.ok) {
+//     alert("Une erreur est survenue");
+//   } else {
+//     let donnee2 = await requete2.json();
+//     console.log(donnee2);
+//   }
+// }
+
+// envoyerPrenom("Auron");
+
+// Axios ------------------------------------------------
+
+function axiosRecupererPrix() {
+  axios
+    .get(url)
+    .then(function (data) {
+      // console.log(data);
+      document.getElementById("price_label").textContent = data.data.EUR.last;
+    })
+    .catch(function (erreur) {
+      alert("Un problème est survenu");
+    });
 }
-
-recupererPrix();
-
-async function envoyerPrenom(prenom) {
-  const requete2 = await fetch(url1, {
-    method: "POST",
-    headers: {
-      "Content-type": "application/x-www-form-urlencoded",
-    },
-    body: new URLSearchParams({
-      prenom, // raccourci de cette syntaxe  prenom : prenom
-    }), //envoyer le prenom)
-  });
-  if (!requete2.ok) {
-    alert("Une erreur est survenue");
-  } else {
-    let donnee2 = await requete2.json();
-    console.log(donnee2);
-  }
-}
-
-envoyerPrenom("Auron");
+setInterval(axiosRecupererPrix(), 1000);
