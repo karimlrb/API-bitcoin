@@ -90,18 +90,38 @@ const url1 = "https://lesoublisdelinfo.com/api.php";
 
 // Axios ------------------------------------------------
 
-function axiosRecupererPrix() {
-  axios
-    .get(url)
-    .then(function (data) {
-      // console.log(data);
-      document.getElementById("price_label").textContent = data.data.EUR.last;
+// function axiosRecupererPrix() {
+//   axios
+//     .get(url)
+//     .then(function (data) {
+//       // console.log(data);
+//       document.getElementById("price_label").textContent = data.data.EUR.last;
+//     })
+//     .catch(function (erreur) {
+//       alert("Un problème est survenu");
+//     })
+//     .then(function () {
+//       console.log("Maj effectuée");
+//     });
+// }
+// setInterval(axiosRecupererPrix, 1000);
+
+const axiosInstancePost = axios.create({
+  headers: {
+    "Content-type": "application/x-www-form-urlencoded",
+  },
+});
+
+axiosInstancePost
+  .post(
+    url1,
+    new URLSearchParams({
+      prenom: "Obraham",
     })
-    .catch(function (erreur) {
-      alert("Un problème est survenu");
-    })
-    .then(function () {
-      console.log("Maj effectuée");
-    });
-}
-setInterval(axiosRecupererPrix, 1000);
+  )
+  .then(function (data2) {
+    console.log(data2.data.resultat);
+  })
+  .catch(function (erreur2) {
+    console.log(erreur2);
+  });
