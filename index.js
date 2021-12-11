@@ -22,7 +22,7 @@ const url = "https://blockchain.info/ticker";
 // }
 // setInterval(prixActuelleBitcoin, 1000);
 
-// const url1 = "https://lesoublisdelinfo.com/api.php";
+const url1 = "https://lesoublisdelinfo.com/api.php";
 
 // GET
 // let requete1 = new XMLHttpRequest();
@@ -63,3 +63,23 @@ async function recupererPrix() {
 }
 
 recupererPrix();
+
+async function envoyerPrenom(prenom) {
+  const requete2 = await fetch(url1, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({
+      prenom, // raccourci de cette syntaxe  prenom : prenom
+    }), //envoyer le prenom)
+  });
+  if (!requete2.ok) {
+    alert("Une erreur est survenue");
+  } else {
+    let donnee2 = await requete2.json();
+    console.log(donnee2);
+  }
+}
+
+envoyerPrenom("Auron");
